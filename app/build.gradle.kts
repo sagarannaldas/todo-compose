@@ -73,14 +73,15 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    //Room Components
-    val room_version = "2.5.2"
+    // Compose Navigation
+    implementation("androidx.navigation:navigation-compose:2.6.0")
 
-    implementation("androidx.room:room-runtime:$room_version")
+    //Room Components
+    implementation("androidx.room:room-runtime:2.5.2")
     // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:2.5.2")
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:2.5.2")
 
     // Datastore Preference
     implementation("androidx.datastore:datastore-preferences:1.0.0")
