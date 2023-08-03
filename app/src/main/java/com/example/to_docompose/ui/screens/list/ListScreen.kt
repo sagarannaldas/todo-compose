@@ -7,18 +7,29 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.to_docompose.R
+import com.example.to_docompose.ui.viewmodels.SharedViewModel
+import com.example.to_docompose.utils.SearchAppBarState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
-    navigateToTaskScreen: (taskId: Int) -> Unit
+    navigateToTaskScreen: (taskId: Int) -> Unit,
+    sharedViewModel: SharedViewModel
 ) {
+    val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
+    val searchTextString: String by sharedViewModel.searchTextState
+
     Scaffold(
         topBar = {
-            ListAppBar()
+            ListAppBar(
+                sharedViewModel = sharedViewModel,
+                searchAppBarState = searchAppBarState,
+                searchTextString = searchTextString
+            )
         },
         content = {},
         floatingActionButton = {
@@ -39,8 +50,8 @@ fun ListFab(onFabClicked: (taskId: Int) -> Unit) {
     }
 }
 
-@Composable
-@Preview
-private fun ListScreenPreview() {
-    ListScreen(navigateToTaskScreen = {})
-}
+//@Composable
+//@Preview
+//private fun ListScreenPreview() {
+//    ListScreen(navigateToTaskScreen = {})
+//}
