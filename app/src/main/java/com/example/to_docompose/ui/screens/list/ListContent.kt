@@ -8,9 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +30,21 @@ import com.example.to_docompose.ui.theme.taskItemBackgroundColor
 import com.example.to_docompose.ui.theme.taskItemTitleColor
 
 @Composable
-fun ListContent() {
+fun ListContent(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    LazyColumn {
+        items(
+            items = tasks,
+            key = { task ->
+                task.id
+            }
+        ) { task ->
+            TaskItem(toDoTask = task, navigateToTaskScreen = navigateToTaskScreen)
+
+        }
+    }
 }
 
 

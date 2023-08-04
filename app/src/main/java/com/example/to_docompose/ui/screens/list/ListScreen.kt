@@ -1,25 +1,33 @@
 package com.example.to_docompose.ui.screens.list
 
+import android.annotation.SuppressLint
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.to_docompose.R
 import com.example.to_docompose.ui.viewmodels.SharedViewModel
 import com.example.to_docompose.utils.SearchAppBarState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
     sharedViewModel: SharedViewModel
 ) {
+    LaunchedEffect(key1 = true) {
+        sharedViewModel.getAllTasks()
+    }
+
+    val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextString: String by sharedViewModel.searchTextState
 
@@ -32,7 +40,10 @@ fun ListScreen(
             )
         },
         content = {
-                  ListContent()
+                  ListContent(
+                      tasks = allTasks,
+                      navigateToTaskScreen = navigateToTaskScreen
+                  )
         },
         floatingActionButton = {
             ListFab(onFabClicked = navigateToTaskScreen)
